@@ -3,7 +3,7 @@
 
 import PyPDF2
 
-pdf_file = PyPDF2.PdfFileReader(open("ANONOPS_The_Press_Release.pdf", "rb"))
+pdf_file = PyPDF2.PdfFileReader(open("pdf/ANONOPS_The_Press_Release.pdf", "rb"))
 
 doc_info = pdf_file.getDocumentInfo()
 
