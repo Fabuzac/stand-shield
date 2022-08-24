@@ -45,7 +45,7 @@ def get_gps_from_exif(file_name):
     with open(file_name, "rb") as file:
         exif = exifread.process_file(file)
     if not exif:
-        print("Aucune latitude/longitude.")
+        print("No latitude/longitude.")
     else:
         latitude = exif.get("GPS GPSLatitude")
         latitude_ref = exif.get("GPS GPSLatitudeRef")
@@ -56,22 +56,23 @@ def get_gps_from_exif(file_name):
         
         if latitude and latitude_ref and longitude and longitude_ref:
             lat = _convert_to_degress(latitude)
-            long = _convert_to_degress(longitude)            
-            if str(latitude_ref) != "N":
-                lat = 0 - lat
-            if str(longitude_ref) != "E" :
-                long = 0 - long
-            # ALTITUDE
+            long = _convert_to_degress(longitude) 
+
             if altitude and altitude_ref:
                 alt_ = altitude.values[0]
                 alt = alt_.num / alt_.den
                 if altitude_ref.values[0] == 1:
-                    alt = 0 - alt
-                print("ALTITUDE : " + str(alt))
+                    alt = 0 - alt                
             else:
                 print("There not altitude data")
+
+            if str(latitude_ref) != "N":
+                lat = 0 - lat
+            if str(longitude_ref) != "E" :
+                long = 0 - long            
+            
             # LATITUDE / LONGITUDE
-            print("LAT :" + str(lat) + " LONG : " + str(long))
+            print("LAT : " + str(lat) + "\nLONG : " + str(long) + "\nALTITUDE : " + str(alt))
             print("http:maps.google.com/maps?q=loc:%s,%s" % (str(lat), str(long)))
             
 # ARGUMENT (flag)
