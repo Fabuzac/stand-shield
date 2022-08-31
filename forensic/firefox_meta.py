@@ -9,7 +9,7 @@ def get_firefox_history(places_sqlite):
         cursor = connection.cursor()
         cursor.execute("""
         
-        SELECT url, last_visit_day, datetime(last_visit_date/1000000, \"unixepoch\")
+        SELECT url, datetime(last_visit_date/1000000, \"unixepoch\")
         FROM moz_places, moz_historyvisits
         WHERE visit_count > 0 and moz_places.id == moz_historyvisits.place_id
 
@@ -33,3 +33,8 @@ args = parser.parse_args()
 
 if args.fhistory:
     get_firefox_history(args.fhistory)
+
+
+#         SELECT url, last_visit_day, datetime(last_visit_date/1000000, \"unixepoch\")
+#         FROM moz_places, moz_historyvisits
+#         WHERE visit_count > 0 and moz_places.id == moz_historyvisits.place_id
